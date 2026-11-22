@@ -1,0 +1,46 @@
+{
+  "name": "fua-just-working",
+  "productName": "JUST WORK",
+  "version": "1.0.0",
+  "description": "FUA JUST Working (JUST WORK) - a minimalist, elegant desktop work assistant by FUA Studio. Three modes: Just Working (everyday), Agent (coding/tech), Urgent (fast & cheap).",
+  "main": "main.js",
+  "author": "FUA Studio",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
+    "icon": "node scripts/make-icon.js",
+    "generate-skills": "node scripts/generate-skills.js",
+    "verify-skills": "node scripts/verify-skills.js",
+    "test": "node scripts/test-logic.js && node scripts/verify-skills.js"
+  },
+  "build": {
+    "appId": "com.fua.studio.justwork",
+    "productName": "JUST WORK",
+    "files": [
+      "main.js",
+      "preload.js",
+      "src/**/*",
+      "assets/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "assets/logo/icon.png",
+      "artifactName": "JUST-WORK-${version}-setup.${ext}"
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "createDesktopShortcut": true
+    }
+  },
+  "devDependencies": {
+    "electron": "^31.0.0",
+    "electron-builder": "^24.13.3"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

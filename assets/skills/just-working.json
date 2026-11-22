@@ -1,0 +1,1152 @@
+[
+  {
+    "id": "j-minutes",
+    "name": "会议纪要",
+    "cat": "文档",
+    "desc": "要点 + 决议 + 行动项，直接发群里。",
+    "io": [
+      {
+        "k": "title",
+        "l": "会议主题",
+        "t": "text"
+      },
+      {
+        "k": "date",
+        "l": "日期",
+        "t": "text"
+      },
+      {
+        "k": "who",
+        "l": "参会人",
+        "t": "text"
+      },
+      {
+        "k": "notes",
+        "l": "原始记录 / 要点",
+        "t": "area"
+      }
+    ],
+    "tpl": "# 会议纪要 · {{title}}\n日期: {{date}}\n参会: {{who}}\n\n## 主要议题\n{{notes}}\n\n## 决议\n- \n\n## 行动项\n| 事项 | 负责人 | 截止 |\n|---|---|---|\n|  |  |  |\n",
+    "fn": null,
+    "out": "md",
+    "lang": null,
+    "ext": "md",
+    "mode": "just-working"
+  },
+  {
+    "id": "j-weekly",
+    "name": "工作周报",
+    "cat": "文档",
+    "desc": "本周做了什么、结果、下周计划，三段式。",
+    "io": [
+      {
+        "k": "name",
+        "l": "姓名 / 团队",
+        "t": "text"
+      },
+      {
+        "k": "week",
+        "l": "周期",
+        "t": "text"
+      }
+    ],
+    "tpl": "# 周报 · {{name}} ({{week}})\n\n## 本周完成\n- \n- \n## 关键结果 / 数据\n- \n## 风险与需要支持\n- \n## 下周计划\n- \n",
+    "fn": null,
+    "out": "md",
+    "lang": null,
+    "ext": "md",
+    "mode": "just-working"
+  },
+  {
+    "id": "j-monthly",
+    "name": "月度总结",
+    "cat": "文档",
+    "desc": "成果、问题、下月重点，向上汇报用。",
+    "io": [
+      {
+        "k": "who",
+        "l": "汇报人",
+        "t": "text"
+      }
+    ],
+    "tpl": "# 月度总结 · {{who}}\n\n## 本月成果\n1. \n## 数据表现\n- \n## 问题与教训\n- \n## 下月重点 (最多 3 条)\n1. \n",
+    "fn": null,
+    "out": "md",
+    "lang": null,
+    "ext": "md",
+    "mode": "just-working"
+  },
+  {
+    "id": "j-review",
+    "name": "项目复盘",
+    "cat": "文档",
+    "desc": "目标—结果—原因—改进，结构化复盘。",
+    "io": [
+      {
+        "k": "proj",
+        "l": "项目名",
+        "t": "text"
+      },
+      {
+        "k": "result",
+        "l": "实际结果",
+        "t": "text"
+      }
+    ],
+    "tpl": "# 复盘 · {{proj}}\n\n目标: \n结果: {{result}}\n\n## 做得好的 (继续保持)\n- \n## 做得差的 (原因分析)\n- \n## 学到了什么\n- \n## 下次改进 (具体动作 + 负责人)\n- \n",
+    "fn": null,
+    "out": "md",
+    "lang": null,
+    "ext": "md",
+    "mode": "just-working"
+  },
+  {
+    "id": "j-prd",
+    "name": "立项书 / 需求 (PRD)",
+    "cat": "文档",
+    "desc": "把要做的事讲清楚，拿到共识。",
+    "io": [
+      {
+        "k": "name",
+        "l": "项目 / 需求名",
+        "t": "text"
+      }
+    ],
+    "tpl": "# {{name}} 需求文档\n\n## 背景与问题\n## 目标 (可衡量)\n## 范围 (做什么 / 不做什么)\n## 用户与场景\n## 功能清单 (P0/P1/P2)\n| 功能 | 优先级 | 说明 |\n|---|---|---|\n## 验收标准\n## 风险\n",
+    "fn": null,
+    "out": "md",
+    "lang": null,
+    "ext": "md",
+    "mode": "just-working"
+  },
+  {
+    "id": "j-story",
+    "name": "用户故事",
+    "cat": "文档",
+    "desc": "作为…我想…以便…，配验收标准。",
+    "io": [
+      {
+        "k": "who",
+        "l": "角色",
+        "t": "text"
+      },
+      {
+        "k": "want",
+        "l": "想要什么",
+        "t": "text"
+      }
+    ],
+    "tpl": "## 用户故事\n作为 {{who}}，\n我想要 <{{want}}>，\n以便 <达到什么价值>。\n\n## 验收标准 (Given/When/Then)\n- Given \n- When \n- Then \n",
+    "fn": null,
+    "out": "md",
+    "lang": null,
+    "ext": "md",
+    "mode": "just-working"
+  },
+  {
+    "id": "j-manual",
+    "name": "操作手册",
+    "cat": "文档",
+    "desc": "一步步教别人怎么做，新人友好。",
+    "io": [
+      {
+        "k": "task",
+        "l": "要完成的任务",
+        "t": "text"
+      }
+    ],
+    "tpl": "# 操作手册: {{task}}\n\n## 前提 (需要哪些账号 / 工具)\n## 步骤\n1. \n2. \n3. \n## 常见问题 (FAQ)\n- 现象 / 原因 / 解决\n",
+    "fn": null,
+    "out": "md",
+    "lang": null,
+    "ext": "md",
+    "mode": "just-working"
+  },
+  {
+    "id": "j-notice",
+    "name": "公告 / 通知",
+    "cat": "文档",
+    "desc": "简短正式，重点前置。",
+    "io": [
+      {
+        "k": "to",
+        "l": "发给谁",
+        "t": "text"
+      },
+      {
+        "k": "matter",
+        "l": "事项",
+        "t": "text"
+      }
+    ],
+    "tpl": "# 关于 {{matter}} 的通知\n\n各位 {{to}}:\n\n【正文】\n\n【关键信息: 时间 / 地点 / 需要做什么】\n\n特此通知。\n",
+    "fn": null,
+    "out": "md",
+    "lang": null,
+    "ext": "md",
+    "mode": "just-working"
+  },
+  {
+    "id": "j-policy",
+    "name": "制度 / 规范摘要",
+    "cat": "文档",
+    "desc": "把长制度压成可执行要点。",
+    "io": [
+      {
+        "k": "name",
+        "l": "制度名称",
+        "t": "text"
+      }
+    ],
+    "tpl": "# {{name}} 要点摘要\n\n目的: \n适用范围: \n关键条款 (逐条):\n1. \n违反后果: \n生效日期: \n",
+    "fn": null,
+    "out": "md",
+    "lang": null,
+    "ext": "md",
+    "mode": "just-working"
+  },
+  {
+    "id": "j-rac-matrix",
+    "name": "责任分配 (RACI)",
+    "cat": "文档",
+    "desc": "每件事谁拍板、谁做、谁知情。",
+    "io": [
+      {
+        "k": "proj",
+        "l": "项目 / 事项",
+        "t": "text"
+      }
+    ],
+    "tpl": "# RACI · {{proj}}\nR=负责执行  A=最终负责(唯一)  C=咨询  I=知会\n| 任务 | 甲 | 乙 | 丙 |\n|---|---|---|---|\n|  |  |  |  |\n\n规则: 每行有且仅有一个 A。\n",
+    "fn": null,
+    "out": "md",
+    "lang": null,
+    "ext": "md",
+    "mode": "just-working"
+  },
+  {
+    "id": "j-ppt-outline",
+    "name": "PPT 大纲",
+    "cat": "PPT",
+    "desc": "标题 + 每页要点，先有骨架再填图。",
+    "io": [
+      {
+        "k": "topic",
+        "l": "主题",
+        "t": "text"
+      },
+      {
+        "k": "aud",
+        "l": "听众",
+        "t": "text"
+      }
+    ],
+    "tpl": "# PPT 大纲 · {{topic}} (听众: {{aud}})\n\n1. 封面: 主题 + 一句话副标题\n2. 背景 / 为什么重要\n3. 核心结论 (先给答案)\n4. 论据 1\n5. 论据 2\n6. 数据 / 案例\n7. 行动建议\n8. 总结 / Q&A\n\n(每页 1 个核心观点, 不超过 3-5 条要点)\n",
+    "fn": null,
+    "out": "md",
+    "lang": null,
+    "ext": "md",
+    "mode": "just-working"
+  },
+  {
+    "id": "j-ppt-script",
+    "name": "逐页讲稿",
+    "cat": "PPT",
+    "desc": "每页要讲什么，照着念也不尬。",
+    "io": [
+      {
+        "k": "topic",
+        "l": "主题",
+        "t": "text"
+      }
+    ],
+    "tpl": "# 讲稿 · {{topic}}\n\n第1页: <开场, 抛出问题>\n第2页: <背景>\n第3页: <结论>\n第4页: <论据1 + 例子>\n第5页: <论据2 + 数据>\n第6页: <行动>\n结尾: <一句话收尾 + 号召>\n",
+    "fn": null,
+    "out": "md",
+    "lang": null,
+    "ext": "md",
+    "mode": "just-working"
+  },
+  {
+    "id": "j-onepager",
+    "name": "一页纸汇报",
+    "cat": "PPT",
+    "desc": "给老板的一页纸: 现状-问题-建议。",
+    "io": [
+      {
+        "k": "topic",
+        "l": "主题",
+        "t": "text"
+      }
+    ],
+    "tpl": "# 一页纸 · {{topic}}\n\n一句话结论: \n现状 (数据): \n问题 (根因): \n建议 (3 条, 各带预期): \n1. \n需要支持: \n",
+    "fn": null,
+    "out": "md",
+    "lang": null,
+    "ext": "md",
+    "mode": "just-working"
+  },
+  {
+    "id": "j-pitch",
+    "name": "路演脚本",
+    "cat": "PPT",
+    "desc": "90 秒讲清一个产品 / 项目。",
+    "io": [
+      {
+        "k": "prod",
+        "l": "产品 / 项目",
+        "t": "text"
+      }
+    ],
+    "tpl": "# 路演 · {{prod}}\n1. 痛点 (10s): 谁在痛? 多痛?\n2. 方案 (20s): 我们怎么解?\n3. 壁垒 (15s): 为什么是我们?\n4. 数据 (20s): 已经做到哪了?\n5. 要什么 (15s): 融资 / 合作 / 资源\n6. 收尾 (10s): 一句话记住我们\n",
+    "fn": null,
+    "out": "md",
+    "lang": null,
+    "ext": "md",
+    "mode": "just-working"
+  },
+  {
+    "id": "j-ppt-title",
+    "name": "PPT 标题优化",
+    "cat": "PPT",
+    "desc": "把平淡标题改成有观点的。",
+    "io": [
+      {
+        "k": "old",
+        "l": "原标题",
+        "t": "text"
+      }
+    ],
+    "tpl": "原标题: {{old}}\n\n改法 (标题要有观点, 不是名词堆砌):\n- 「数据增长」→「Q3 增长 20%: 我们做对了 3 件事」\n- 「问题与方案」→「成本高的根因是 X, 两步降到 Y」\n\n给出 3 个候选:\n1. \n2. \n3. \n",
+    "fn": null,
+    "out": "md",
+    "lang": null,
+    "ext": "md",
+    "mode": "just-working"
+  },
+  {
+    "id": "j-chart-caption",
+    "name": "图表说明",
+    "cat": "PPT",
+    "desc": "一张图配一句结论，别让人猜。",
+    "io": [
+      {
+        "k": "chart",
+        "l": "图里有什么",
+        "t": "text"
+      },
+      {
+        "k": "concl",
+        "l": "你想说的结论",
+        "t": "text"
+      }
+    ],
+    "tpl": "图题: <数据维度, 如 2025 Q1-Q4 销售额>\n结论 (写在图上方, 加粗): {{concl}}\n解读: {{chart}}\n提示: 用颜色/箭头突出关键数据点\n",
+    "fn": null,
+    "out": "md",
+    "lang": null,
+    "ext": "md",
+    "mode": "just-working"
+  },
+  {
+    "id": "j-ppt-speaker",
+    "name": "演讲备注",
+    "cat": "PPT",
+    "desc": "翻页时的口头补充，不上屏。",
+    "io": [
+      {
+        "k": "slide",
+        "l": "页标题",
+        "t": "text"
+      }
+    ],
+    "tpl": "# 备注 · {{slide}}\n- 开场: 这页我讲 ___ (约 30s)\n- 强调: 听众该记住 ___\n- 过渡: 接下来 ___\n- 可能被问: ___ / 回答要点: ___\n",
+    "fn": null,
+    "out": "md",
+    "lang": null,
+    "ext": "md",
+    "mode": "just-working"
+  },
+  {
+    "id": "j-training",
+    "name": "培训课件大纲",
+    "cat": "PPT",
+    "desc": "教会别人一件事，结构清晰。",
+    "io": [
+      {
+        "k": "skill",
+        "l": "要教的内容",
+        "t": "text"
+      }
+    ],
+    "tpl": "# 培训 · {{skill}}\n\n目标 (听完能做什么): \n1. 概念: 是什么 / 为什么\n2. 步骤: 怎么做 (demo)\n3. 练习: 跟做一遍\n4. 常见坑\n5. 作业 / 检验\n",
+    "fn": null,
+    "out": "md",
+    "lang": null,
+    "ext": "md",
+    "mode": "just-working"
+  },
+  {
+    "id": "r-data-read",
+    "name": "数据报表解读",
+    "cat": "报表",
+    "desc": "把数字翻译成结论。",
+    "io": [
+      {
+        "k": "data",
+        "l": "关键数据",
+        "t": "area"
+      },
+      {
+        "k": "goal",
+        "l": "关注什么",
+        "t": "text"
+      }
+    ],
+    "tpl": "# 数据解读 · 关注: {{goal}}\n\n数据: {{data}}\n\n## 结论 (先说最重要的)\n## 趋势 (环比 / 同比)\n## 异常 (哪个点不对劲, 为什么)\n## 建议动作\n",
+    "fn": null,
+    "out": "md",
+    "lang": null,
+    "ext": "md",
+    "mode": "just-working"
+  },
+  {
+    "id": "r-kpi",
+    "name": "KPI 看板文案",
+    "cat": "报表",
+    "desc": "每个指标一句话说清现状。",
+    "io": [
+      {
+        "k": "kpis",
+        "l": "指标 (逗号分隔)",
+        "t": "text"
+      }
+    ],
+    "tpl": "# KPI 看板\n| 指标 | 目标 | 当前 | 达成 | 趋势 | 一句话解读 |\n|---|---|---|---|---|---|\n指标: {{kpis}}\n",
+    "fn": null,
+    "out": "md",
+    "lang": null,
+    "ext": "md",
+    "mode": "just-working"
+  },
+  {
+    "id": "r-finance",
+    "name": "财务报表摘要",
+    "cat": "报表",
+    "desc": "三张表抓重点，非财务也能懂。",
+    "io": [
+      {
+        "k": "period",
+        "l": "周期",
+        "t": "text"
+      }
+    ],
+    "tpl": "# 财务摘要 · {{period}}\n\n营收:  (增长? 来自哪)\n成本 / 毛利:  (变化原因)\n现金流:  (够烧多久)\n关键比:  (毛利率 / 费用率 / 周转)\n一句话结论: \n",
+    "fn": null,
+    "out": "md",
+    "lang": null,
+    "ext": "md",
+    "mode": "just-working"
+  },
+  {
+    "id": "r-ops",
+    "name": "运营数据周报",
+    "cat": "报表",
+    "desc": "流量-转化-留存-收入，一条链。",
+    "io": [
+      {
+        "k": "week",
+        "l": "周期",
+        "t": "text"
+      }
+    ],
+    "tpl": "# 运营周报 · {{week}}\n\n流量:  (来源结构)\n转化:  (哪步掉了)\n留存:  (新老占比)\n收入:  (客单 / 转化)\n本周动作与效果:\n下周重点:\n",
+    "fn": null,
+    "out": "md",
+    "lang": null,
+    "ext": "md",
+    "mode": "just-working"
+  },
+  {
+    "id": "r-funnel",
+    "name": "漏斗分析",
+    "cat": "报表",
+    "desc": "每一步转化，找到最大流失。",
+    "io": [
+      {
+        "k": "steps",
+        "l": "各步骤 (逗号分隔)",
+        "t": "text"
+      }
+    ],
+    "tpl": "# 漏斗分析\n步骤: {{steps}}\n| 步骤 | 数量 | 环比上一步转化 | 累计转化 |\n|---|---|---|---|\n最大流失在: ___  (原因假设 + 验证方法)\n",
+    "fn": null,
+    "out": "md",
+    "lang": null,
+    "ext": "md",
+    "mode": "just-working"
+  },
+  {
+    "id": "r-yoy",
+    "name": "同比环比分析",
+    "cat": "报表",
+    "desc": "别只看绝对值，看相对变化。",
+    "io": [
+      {
+        "k": "metric",
+        "l": "指标",
+        "t": "text"
+      }
+    ],
+    "tpl": "# 同比 / 环比 · {{metric}}\n\n本值:  上周期:  去年同期:\n环比: ___% (短期趋势)\n同比: ___% (剔除季节性)\n解读: 哪段异常, 为什么, 是否可持续\n",
+    "fn": null,
+    "out": "md",
+    "lang": null,
+    "ext": "md",
+    "mode": "just-working"
+  },
+  {
+    "id": "m-biz",
+    "name": "商务邮件",
+    "cat": "邮件",
+    "desc": "礼貌克制，诉求清楚。",
+    "io": [
+      {
+        "k": "to",
+        "l": "收件人",
+        "t": "text"
+      },
+      {
+        "k": "purpose",
+        "l": "目的",
+        "t": "text"
+      }
+    ],
+    "tpl": "主题: <一句话点明诉求>\n\n{{to}} 您好:\n\n【第一段: 我是谁 + 来意】\n\n【第二段: 背景 / 理由】\n\n【诉求: 明确要对方做什么 + 时间】\n\n顺祝商祺\n<署名>\n",
+    "fn": null,
+    "out": "txt",
+    "lang": null,
+    "ext": "txt",
+    "mode": "just-working"
+  },
+  {
+    "id": "m-follow",
+    "name": "催办 / 跟进",
+    "cat": "邮件",
+    "desc": "不施压但推动，给 deadline。",
+    "io": [
+      {
+        "k": "who",
+        "l": "对方",
+        "t": "text"
+      },
+      {
+        "k": "item",
+        "l": "事项",
+        "t": "text"
+      }
+    ],
+    "tpl": "{{who}} 您好:\n\n跟进一下 <{{item}}>。目前状态: ___。\n如没有阻塞, 麻烦在 <日期> 前给到 ___。\n若需要我这边配合, 请告诉我, 我马上处理。\n\n谢谢!\n",
+    "fn": null,
+    "out": "txt",
+    "lang": null,
+    "ext": "txt",
+    "mode": "just-working"
+  },
+  {
+    "id": "m-decline",
+    "name": "婉拒",
+    "cat": "邮件",
+    "desc": "拒绝但留余地，不伤关系。",
+    "io": [
+      {
+        "k": "who",
+        "l": "对方",
+        "t": "text"
+      },
+      {
+        "k": "reason",
+        "l": "理由",
+        "t": "text"
+      }
+    ],
+    "tpl": "{{who}} 您好:\n\n感谢你的 ___ 。\n很抱歉, 因为 <{{reason}}> , 这次恐怕没法参与 / 答应。\n如果后续有 ___ , 欢迎再来找我。\n\n祝好,\n",
+    "fn": null,
+    "out": "txt",
+    "lang": null,
+    "ext": "txt",
+    "mode": "just-working"
+  },
+  {
+    "id": "m-apology",
+    "name": "道歉邮件",
+    "cat": "邮件",
+    "desc": "认错 + 补救 + 不再犯。",
+    "io": [
+      {
+        "k": "who",
+        "l": "对方",
+        "t": "text"
+      },
+      {
+        "k": "what",
+        "l": "出了什么事",
+        "t": "text"
+      }
+    ],
+    "tpl": "{{who}} 您好:\n\n为 <{{what}}> 向你致歉, 这是我们的责任。\n\n补救措施: \n避免再发生: \n\n再次抱歉, 感谢你的理解。\n",
+    "fn": null,
+    "out": "txt",
+    "lang": null,
+    "ext": "txt",
+    "mode": "just-working"
+  },
+  {
+    "id": "m-invite",
+    "name": "邀约邮件",
+    "cat": "邮件",
+    "desc": "时间、地点、议程一次说全。",
+    "io": [
+      {
+        "k": "who",
+        "l": "对方",
+        "t": "text"
+      },
+      {
+        "k": "event",
+        "l": "事项",
+        "t": "text"
+      }
+    ],
+    "tpl": "{{who}} 您好:\n\n诚挚邀请您参加 <{{event}}>。\n时间:  地点:  \n议程: \n\n期待您的回复, 以便确认席位。\n",
+    "fn": null,
+    "out": "txt",
+    "lang": null,
+    "ext": "txt",
+    "mode": "just-working"
+  },
+  {
+    "id": "m-thanks",
+    "name": "感谢邮件",
+    "cat": "邮件",
+    "desc": "具体地谢，别太虚。",
+    "io": [
+      {
+        "k": "who",
+        "l": "对方",
+        "t": "text"
+      },
+      {
+        "k": "for",
+        "l": "谢什么",
+        "t": "text"
+      }
+    ],
+    "tpl": "{{who}} 您好:\n\n谢谢你为 <{{for}}> 做的 ___ , 这对我们很关键。\n特别是 ___ (具体的点)。\n\n再次感谢!\n",
+    "fn": null,
+    "out": "txt",
+    "lang": null,
+    "ext": "txt",
+    "mode": "just-working"
+  },
+  {
+    "id": "m-interview",
+    "name": "面试邀请",
+    "cat": "邮件",
+    "desc": "岗位、时间、准备、联系人。",
+    "io": [
+      {
+        "k": "cand",
+        "l": "候选人",
+        "t": "text"
+      },
+      {
+        "k": "role",
+        "l": "岗位",
+        "t": "text"
+      }
+    ],
+    "tpl": "{{cand}} 您好:\n\n很高兴通知您进入 <{{role}}> 的面试环节。\n时间:  形式 (视频 / 现场): \n地点 / 链接:  面试官: \n请准备: \n\n如时间不便, 请回复协调。\n",
+    "fn": null,
+    "out": "txt",
+    "lang": null,
+    "ext": "txt",
+    "mode": "just-working"
+  },
+  {
+    "id": "mt-agenda",
+    "name": "会议议程",
+    "cat": "会议",
+    "desc": "目标 + 议题 + 时间 + 负责人。",
+    "io": [
+      {
+        "k": "topic",
+        "l": "会议主题",
+        "t": "text"
+      }
+    ],
+    "tpl": "# 会议议程 · {{topic}}\n时间 / 参会:\n目标: 这个会要产出什么?\n| 时间 | 议题 | 负责人 |\n|---|---|---|\n预读材料: \n",
+    "fn": null,
+    "out": "md",
+    "lang": null,
+    "ext": "md",
+    "mode": "just-working"
+  },
+  {
+    "id": "mt-minutes",
+    "name": "精简纪要",
+    "cat": "会议",
+    "desc": "30 秒能读完的版本。",
+    "io": [
+      {
+        "k": "topic",
+        "l": "主题",
+        "t": "text"
+      }
+    ],
+    "tpl": "{{topic}} 纪要\n结论 (最多 3 条):\n- \n行动项: 谁 在何时 前 做什么:\n- \n",
+    "fn": null,
+    "out": "md",
+    "lang": null,
+    "ext": "md",
+    "mode": "just-working"
+  },
+  {
+    "id": "mt-action",
+    "name": "行动项清单",
+    "cat": "会议",
+    "desc": "每条可执行、可验收。",
+    "io": [
+      {
+        "k": "topic",
+        "l": "来源会议",
+        "t": "text"
+      }
+    ],
+    "tpl": "# 行动项 · {{topic}}\n| # | 事项 | 负责人 | 截止 | 验收标准 |\n|---|---|---|---|---|\n规则: 一条一个负责人, 有明确完成标志\n",
+    "fn": null,
+    "out": "md",
+    "lang": null,
+    "ext": "md",
+    "mode": "just-working"
+  },
+  {
+    "id": "mt-decision",
+    "name": "会议决议",
+    "cat": "会议",
+    "desc": "定下来的事，白纸黑字。",
+    "io": [
+      {
+        "k": "topic",
+        "l": "主题",
+        "t": "text"
+      }
+    ],
+    "tpl": "# 决议 · {{topic}}\n决策: \n理由 (关键点): \n范围: 这个决定管什么 / 不管什么\n生效: \n负责人: \n",
+    "fn": null,
+    "out": "md",
+    "lang": null,
+    "ext": "md",
+    "mode": "just-working"
+  },
+  {
+    "id": "mt-standup",
+    "name": "站会模板",
+    "cat": "会议",
+    "desc": "昨天/今天/阻塞，各 30 秒。",
+    "io": [
+      {
+        "k": "name",
+        "l": "姓名",
+        "t": "text"
+      }
+    ],
+    "tpl": "{{name}}\n昨天完成: \n今天计划: \n阻塞 (需要谁帮): \n",
+    "fn": null,
+    "out": "md",
+    "lang": null,
+    "ext": "md",
+    "mode": "just-working"
+  },
+  {
+    "id": "mt-retro",
+    "name": "会议 / 活动复盘",
+    "cat": "会议",
+    "desc": "好的坏的都拿出来讲。",
+    "io": [
+      {
+        "k": "event",
+        "l": "事项",
+        "t": "text"
+      }
+    ],
+    "tpl": "# 复盘 · {{event}}\n做得好 (继续保持): \n做得差 (原因): \n意外收获: \n下次改进 (具体动作 + 人 + 时间): \n",
+    "fn": null,
+    "out": "md",
+    "lang": null,
+    "ext": "md",
+    "mode": "just-working"
+  },
+  {
+    "id": "p-year",
+    "name": "年度计划",
+    "cat": "计划",
+    "desc": "从大目标拆到季度。",
+    "io": [
+      {
+        "k": "goal",
+        "l": "年度目标",
+        "t": "text"
+      }
+    ],
+    "tpl": "# 年度计划 · {{goal}}\n\n年度北极星指标: \nQ1: \nQ2: \nQ3: \nQ4: \n每季度 1-2 个关键结果 (可衡量)\n",
+    "fn": null,
+    "out": "md",
+    "lang": null,
+    "ext": "md",
+    "mode": "just-working"
+  },
+  {
+    "id": "p-okr",
+    "name": "季度 OKR",
+    "cat": "计划",
+    "desc": "O 是方向, KR 是可量化结果。",
+    "io": [
+      {
+        "k": "o",
+        "l": "目标 O",
+        "t": "text"
+      }
+    ],
+    "tpl": "# OKR\nO: {{o}}\nKR1: 指标从 ___ 到 ___ (3.0 分)\nKR2: \nKR3: \n(每个 KR 可衡量、有挑战、团队能 70% 达成是好)\n",
+    "fn": null,
+    "out": "md",
+    "lang": null,
+    "ext": "md",
+    "mode": "just-working"
+  },
+  {
+    "id": "p-month",
+    "name": "月计划",
+    "cat": "计划",
+    "desc": "本月 3 件最重要的事。",
+    "io": [
+      {
+        "k": "m",
+        "l": "月份",
+        "t": "text"
+      }
+    ],
+    "tpl": "# {{m}} 计划\n本月最重要的 3 件事:\n1.  (衡量: )\n2.  (衡量: )\n3.  (衡量: )\n每周拆解: \n",
+    "fn": null,
+    "out": "md",
+    "lang": null,
+    "ext": "md",
+    "mode": "just-working"
+  },
+  {
+    "id": "p-week",
+    "name": "周计划",
+    "cat": "计划",
+    "desc": "一周聚焦，留白。",
+    "io": [
+      {
+        "k": "w",
+        "l": "第几周",
+        "t": "text"
+      }
+    ],
+    "tpl": "# 周计划 · {{w}}\n\n周一: \n周二: \n周三: \n周四: \n周五: \n弹性 / 缓冲 (占 20%): \n",
+    "fn": null,
+    "out": "md",
+    "lang": null,
+    "ext": "md",
+    "mode": "just-working"
+  },
+  {
+    "id": "p-gantt",
+    "name": "项目里程碑",
+    "cat": "计划",
+    "desc": "关键节点 + 依赖。",
+    "io": [
+      {
+        "k": "proj",
+        "l": "项目",
+        "t": "text"
+      }
+    ],
+    "tpl": "# 里程碑 · {{proj}}\n| 里程碑 | 时间 | 负责人 | 依赖 |\n|---|---|---|---|\n风险节点: \n",
+    "fn": null,
+    "out": "md",
+    "lang": null,
+    "ext": "md",
+    "mode": "just-working"
+  },
+  {
+    "id": "p-study",
+    "name": "学习计划",
+    "cat": "计划",
+    "desc": "目标 + 节奏 + 检验。",
+    "io": [
+      {
+        "k": "topic",
+        "l": "学什么",
+        "t": "text"
+      }
+    ],
+    "tpl": "# 学习 · {{topic}}\n目标 (能做出什么): \n资源: \n每日节奏: \n每阶段检验 (怎么算学会): \n",
+    "fn": null,
+    "out": "md",
+    "lang": null,
+    "ext": "md",
+    "mode": "just-working"
+  },
+  {
+    "id": "p-retro-plan",
+    "name": "复盘行动计划",
+    "cat": "计划",
+    "desc": "把复盘变成下周动作。",
+    "io": [
+      {
+        "k": "from",
+        "l": "来源复盘",
+        "t": "text"
+      }
+    ],
+    "tpl": "# 行动计划 · 源自 {{from}}\n从复盘挑出 2-3 条最影响结果的改进:\n1. 动作:  负责人:  何时: \n2. \n3. \n下次复盘对照: 是否落地?\n",
+    "fn": null,
+    "out": "md",
+    "lang": null,
+    "ext": "md",
+    "mode": "just-working"
+  },
+  {
+    "id": "rs-resume",
+    "name": "结构化简历",
+    "cat": "简历",
+    "desc": "一段经历，写成有结果的样子。",
+    "io": [
+      {
+        "k": "name",
+        "l": "姓名",
+        "t": "text"
+      },
+      {
+        "k": "title",
+        "l": "目标岗位",
+        "t": "text"
+      },
+      {
+        "k": "exp",
+        "l": "经历 (逐条)",
+        "t": "area"
+      }
+    ],
+    "tpl": "# {{name}} · {{title}}\n\n## 个人优势 (2-3 行, 与岗位强相关)\n## 工作经历\n{{exp}}\n(每条: 动词开头 + 做了什么 + 量化结果)\n## 技能\n## 教育 / 证书\n",
+    "fn": null,
+    "out": "md",
+    "lang": null,
+    "ext": "md",
+    "mode": "just-working"
+  },
+  {
+    "id": "rs-polish",
+    "name": "简历逐条优化",
+    "cat": "简历",
+    "desc": "把「负责…」改成有结果的表达。",
+    "io": [
+      {
+        "k": "line",
+        "l": "原始描述",
+        "t": "text"
+      }
+    ],
+    "tpl": "原句: {{line}}\n\n问题: 「负责/参与」太空, 缺结果。\n改法: 动词 + 动作 + 影响(数字) + 技术/方法\n示例: 「负责后台优化」→「重构查询, P95 延迟从 800ms 降到 120ms」\n",
+    "fn": null,
+    "out": "md",
+    "lang": null,
+    "ext": "md",
+    "mode": "just-working"
+  },
+  {
+    "id": "rs-selfintro",
+    "name": "自我评价",
+    "cat": "简历",
+    "desc": "不吹牛，讲事实。",
+    "io": [
+      {
+        "k": "role",
+        "l": "岗位",
+        "t": "text"
+      }
+    ],
+    "tpl": "针对 <{{role}}> 的自我评价:\n- 能力: 我有 ___ 经验, 做过 ___ (结果)\n- 特质: 我擅长 ___ , 举例 ___\n- 匹配: 这与岗位需要的 ___ 高度一致\n(3 条以内, 每条有据)\n",
+    "fn": null,
+    "out": "md",
+    "lang": null,
+    "ext": "md",
+    "mode": "just-working"
+  },
+  {
+    "id": "rs-cover",
+    "name": "求职信",
+    "cat": "简历",
+    "desc": "为什么是你 + 为什么是这个岗位。",
+    "io": [
+      {
+        "k": "name",
+        "l": "姓名",
+        "t": "text"
+      },
+      {
+        "k": "company",
+        "l": "公司",
+        "t": "text"
+      },
+      {
+        "k": "role",
+        "l": "岗位",
+        "t": "text"
+      }
+    ],
+    "tpl": "致 {{company}} 招聘负责人:\n\n我是 {{name}}, 申请 {{role}}。\n\n我为什么匹配: 我做过 ___ , 成果是 ___ , 正好解决你们 ___ 的问题。\n我为什么选你们: ___\n\n期待与您沟通。\n",
+    "fn": null,
+    "out": "txt",
+    "lang": null,
+    "ext": "txt",
+    "mode": "just-working"
+  },
+  {
+    "id": "rs-interview",
+    "name": "面试问题准备",
+    "cat": "简历",
+    "desc": "高频问题 + 你的回答框架。",
+    "io": [
+      {
+        "k": "role",
+        "l": "岗位",
+        "t": "text"
+      }
+    ],
+    "tpl": "# 面试准备 · {{role}}\n\n自我介绍 (1 分钟): \n高频问题:\n- 项目里你最大的难点? (STAR 讲)\n- 你的优势 / 短板?\n- 为什么离职?\n- 期望薪资?\n你的答案要点: \n",
+    "fn": null,
+    "out": "md",
+    "lang": null,
+    "ext": "md",
+    "mode": "just-working"
+  },
+  {
+    "id": "w-polish",
+    "name": "文案润色",
+    "cat": "写作",
+    "desc": "让句子更干净有力。",
+    "io": [
+      {
+        "k": "t",
+        "l": "原文",
+        "t": "area"
+      }
+    ],
+    "tpl": "原文:\n{{t}}\n\n润色原则:\n- 删掉「的、了、其实、基本上」等口水词\n- 长句拆短, 一句一个意思\n- 动词替代名词堆砌\n- 删掉不影响信息的部分\n\n改后:\n",
+    "fn": null,
+    "out": "md",
+    "lang": null,
+    "ext": "md",
+    "mode": "just-working"
+  },
+  {
+    "id": "w-title",
+    "name": "标题 / 一句话卖点",
+    "cat": "写作",
+    "desc": "让人忍不住点进去。",
+    "io": [
+      {
+        "k": "topic",
+        "l": "内容",
+        "t": "text"
+      }
+    ],
+    "tpl": "关于 <{{topic}}> 的候选标题:\n1. 数字型: 用 ___ 个方法把 ___ 提到 ___\n2. 反常识型: 别再 ___ 了, 其实 ___\n3. 悬念型: 我试了 ___ , 结果 ___\n4. 直接型: 关于 ___ 的完全指南\n",
+    "fn": null,
+    "out": "md",
+    "lang": null,
+    "ext": "md",
+    "mode": "just-working"
+  },
+  {
+    "id": "w-essay",
+    "name": "公众号 / 长文框架",
+    "cat": "写作",
+    "desc": "有钩子、有节奏、有落点。",
+    "io": [
+      {
+        "k": "topic",
+        "l": "主题",
+        "t": "text"
+      }
+    ],
+    "tpl": "# <{{topic}}> 长文框架\n\n开头 (钩子): 用一个冲突 / 故事 / 数据 3 行内进正题\n正文: 2-3 个分论点, 每个「观点 + 例子 + 小结」\n过渡: 每节结尾埋下一节的引子\n结尾: 升华 + 给读者一个动作 / 金句\n",
+    "fn": null,
+    "out": "md",
+    "lang": null,
+    "ext": "md",
+    "mode": "just-working"
+  },
+  {
+    "id": "w-pr",
+    "name": "新闻稿",
+    "cat": "写作",
+    "desc": "倒金字塔，先报结果。",
+    "io": [
+      {
+        "k": "event",
+        "l": "事件",
+        "t": "text"
+      }
+    ],
+    "tpl": "# 新闻稿\n\n【标题: 一句话, 含关键事实】\n【导语: 谁、何时、何地、何事、为何 (5W)】\n【正文: 按重要性递减, 配引语】\n【背景: 机构 / 产品简介】\n【联系方式: 媒体联系人】\n",
+    "fn": null,
+    "out": "md",
+    "lang": null,
+    "ext": "md",
+    "mode": "just-working"
+  },
+  {
+    "id": "w-sell",
+    "name": "产品卖点提炼",
+    "cat": "写作",
+    "desc": "功能 → 利益 → 价值。",
+    "io": [
+      {
+        "k": "prod",
+        "l": "产品",
+        "t": "text"
+      }
+    ],
+    "tpl": "# {{prod}} 卖点\n\n核心卖点 (一句话): \n功能-利益对:\n- 功能 ___ → 对用户意味着 ___\n差异化 (别家没有的): \n信任状 (数据/背书/案例): \n",
+    "fn": null,
+    "out": "md",
+    "lang": null,
+    "ext": "md",
+    "mode": "just-working"
+  },
+  {
+    "id": "w-todo",
+    "name": "待办清单",
+    "cat": "办公",
+    "desc": "把一堆事排成可执行的清单。",
+    "io": [
+      {
+        "k": "tasks",
+        "l": "事项 (逗号分隔)",
+        "t": "text"
+      }
+    ],
+    "tpl": "# 待办 · {{tasks}}\n\n[ ] \n[ ] \n[ ] \n(每条: 动词 + 对象 + 完成标志; 按优先级排序)\n今天只做前 3 件:\n",
+    "fn": null,
+    "out": "md",
+    "lang": null,
+    "ext": "md",
+    "mode": "just-working"
+  }
+]

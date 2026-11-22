@@ -1,0 +1,572 @@
+[
+  {
+    "id": "u-csv-json",
+    "name": "CSV → JSON",
+    "cat": "数据转换",
+    "desc": "粘贴 CSV，秒变 JSON。",
+    "io": [
+      {
+        "k": "csv",
+        "l": "CSV 内容",
+        "t": "area"
+      },
+      {
+        "k": "sep",
+        "l": "分隔符",
+        "t": "text"
+      },
+      {
+        "k": "pretty",
+        "l": "缩进美化",
+        "t": "checkbox"
+      }
+    ],
+    "tpl": "",
+    "fn": "csvToJson",
+    "out": "json",
+    "lang": null,
+    "ext": "json",
+    "mode": "urgent"
+  },
+  {
+    "id": "u-json-csv",
+    "name": "JSON → CSV",
+    "cat": "数据转换",
+    "desc": "JSON 数组转 CSV，方便导入表格。",
+    "io": [
+      {
+        "k": "js",
+        "l": "JSON 数组",
+        "t": "area"
+      }
+    ],
+    "tpl": "",
+    "fn": "jsonToCsv",
+    "out": "txt",
+    "lang": null,
+    "ext": "txt",
+    "mode": "urgent"
+  },
+  {
+    "id": "u-base64-e",
+    "name": "Base64 编码",
+    "cat": "编码",
+    "desc": "文本 → Base64。",
+    "io": [
+      {
+        "k": "t",
+        "l": "文本",
+        "t": "text"
+      }
+    ],
+    "tpl": "",
+    "fn": "b64Encode",
+    "out": "txt",
+    "lang": null,
+    "ext": "txt",
+    "mode": "urgent"
+  },
+  {
+    "id": "u-base64-d",
+    "name": "Base64 解码",
+    "cat": "编码",
+    "desc": "Base64 → 文本。",
+    "io": [
+      {
+        "k": "t",
+        "l": "Base64",
+        "t": "text"
+      }
+    ],
+    "tpl": "",
+    "fn": "b64Decode",
+    "out": "txt",
+    "lang": null,
+    "ext": "txt",
+    "mode": "urgent"
+  },
+  {
+    "id": "u-url-e",
+    "name": "URL 编码",
+    "cat": "编码",
+    "desc": "把参数安全地转成 URL。",
+    "io": [
+      {
+        "k": "t",
+        "l": "文本",
+        "t": "text"
+      }
+    ],
+    "tpl": "",
+    "fn": "urlEncode",
+    "out": "txt",
+    "lang": null,
+    "ext": "txt",
+    "mode": "urgent"
+  },
+  {
+    "id": "u-url-d",
+    "name": "URL 解码",
+    "cat": "编码",
+    "desc": "把 URL 参数还原成文本。",
+    "io": [
+      {
+        "k": "t",
+        "l": "URL 编码串",
+        "t": "text"
+      }
+    ],
+    "tpl": "",
+    "fn": "urlDecode",
+    "out": "txt",
+    "lang": null,
+    "ext": "txt",
+    "mode": "urgent"
+  },
+  {
+    "id": "u-ts-now",
+    "name": "当前时间戳",
+    "cat": "时间",
+    "desc": "看一眼现在的时间戳。",
+    "io": [
+      {
+        "k": "u",
+        "l": "单位",
+        "t": "select"
+      }
+    ],
+    "tpl": "",
+    "fn": "tsNow",
+    "out": "txt",
+    "lang": null,
+    "ext": "txt",
+    "mode": "urgent"
+  },
+  {
+    "id": "u-epoch",
+    "name": "时间戳 → 日期",
+    "cat": "时间",
+    "desc": "把时间戳还原成人能懂的日期。",
+    "io": [
+      {
+        "k": "ts",
+        "l": "时间戳",
+        "t": "number"
+      }
+    ],
+    "tpl": "",
+    "fn": "epochToDate",
+    "out": "txt",
+    "lang": null,
+    "ext": "txt",
+    "mode": "urgent"
+  },
+  {
+    "id": "u-uuid",
+    "name": "UUID 生成",
+    "cat": "随机",
+    "desc": "一次生成一批 UUID。",
+    "io": [
+      {
+        "k": "cnt",
+        "l": "数量",
+        "t": "number"
+      },
+      {
+        "k": "v8",
+        "l": "版本 8 (随机)",
+        "t": "checkbox"
+      }
+    ],
+    "tpl": "",
+    "fn": "genUuid",
+    "out": "txt",
+    "lang": null,
+    "ext": "txt",
+    "mode": "urgent"
+  },
+  {
+    "id": "u-pass",
+    "name": "随机密码",
+    "cat": "随机",
+    "desc": "强密码，一步到位。",
+    "io": [
+      {
+        "k": "len",
+        "l": "长度",
+        "t": "number"
+      },
+      {
+        "k": "upper",
+        "l": "大写字母",
+        "t": "checkbox"
+      },
+      {
+        "k": "digit",
+        "l": "数字",
+        "t": "checkbox"
+      },
+      {
+        "k": "sym",
+        "l": "符号",
+        "t": "checkbox"
+      }
+    ],
+    "tpl": "",
+    "fn": "genPass",
+    "out": "txt",
+    "lang": null,
+    "ext": "txt",
+    "mode": "urgent"
+  },
+  {
+    "id": "u-case",
+    "name": "命名格式转换",
+    "cat": "文本",
+    "desc": "camel / snake / kebab / Pascal，随意切。",
+    "io": [
+      {
+        "k": "t",
+        "l": "标识符",
+        "t": "text"
+      },
+      {
+        "k": "fmt",
+        "l": "目标格式",
+        "t": "select"
+      }
+    ],
+    "tpl": "",
+    "fn": "caseConvert",
+    "out": "txt",
+    "lang": null,
+    "ext": "txt",
+    "mode": "urgent"
+  },
+  {
+    "id": "u-count",
+    "name": "字数统计",
+    "cat": "文本",
+    "desc": "行数、字数、字符数，一目了然。",
+    "io": [
+      {
+        "k": "t",
+        "l": "文本",
+        "t": "area"
+      }
+    ],
+    "tpl": "",
+    "fn": "textStats",
+    "out": "txt",
+    "lang": null,
+    "ext": "txt",
+    "mode": "urgent"
+  },
+  {
+    "id": "u-dedup",
+    "name": "去重去空行",
+    "cat": "文本",
+    "desc": "一行一行挑干净。",
+    "io": [
+      {
+        "k": "t",
+        "l": "文本",
+        "t": "area"
+      },
+      {
+        "k": "dedup",
+        "l": "去重",
+        "t": "checkbox"
+      },
+      {
+        "k": "trim",
+        "l": "去空行",
+        "t": "checkbox"
+      }
+    ],
+    "tpl": "",
+    "fn": "dedupLines",
+    "out": "txt",
+    "lang": null,
+    "ext": "txt",
+    "mode": "urgent"
+  },
+  {
+    "id": "u-sort",
+    "name": "行排序",
+    "cat": "文本",
+    "desc": "正序 / 逆序 / 随机。",
+    "io": [
+      {
+        "k": "t",
+        "l": "文本",
+        "t": "area"
+      },
+      {
+        "k": "dir",
+        "l": "方向",
+        "t": "select"
+      }
+    ],
+    "tpl": "",
+    "fn": "sortLines",
+    "out": "txt",
+    "lang": null,
+    "ext": "txt",
+    "mode": "urgent"
+  },
+  {
+    "id": "u-rev",
+    "name": "文本反转",
+    "cat": "文本",
+    "desc": "整段倒过来。",
+    "io": [
+      {
+        "k": "t",
+        "l": "文本",
+        "t": "area"
+      }
+    ],
+    "tpl": "",
+    "fn": "reverseText",
+    "out": "txt",
+    "lang": null,
+    "ext": "txt",
+    "mode": "urgent"
+  },
+  {
+    "id": "u-json-fmt",
+    "name": "JSON 格式化",
+    "cat": "数据转换",
+    "desc": "压缩 / 美化，读得清。",
+    "io": [
+      {
+        "k": "js",
+        "l": "JSON",
+        "t": "area"
+      },
+      {
+        "k": "mode",
+        "l": "操作",
+        "t": "select"
+      }
+    ],
+    "tpl": "",
+    "fn": "jsonFmt",
+    "out": "json",
+    "lang": null,
+    "ext": "json",
+    "mode": "urgent"
+  },
+  {
+    "id": "u-regex",
+    "name": "正则提取",
+    "cat": "工具",
+    "desc": "把匹配到的内容全捞出来。",
+    "io": [
+      {
+        "k": "pat",
+        "l": "正则",
+        "t": "text"
+      },
+      {
+        "k": "flags",
+        "l": "标志",
+        "t": "text"
+      },
+      {
+        "k": "txt",
+        "l": "目标文本",
+        "t": "area"
+      }
+    ],
+    "tpl": "",
+    "fn": "regexMatch",
+    "out": "txt",
+    "lang": null,
+    "ext": "txt",
+    "mode": "urgent"
+  },
+  {
+    "id": "u-esc",
+    "name": "HTML 转义",
+    "cat": "工具",
+    "desc": "防注入，安全渲染。",
+    "io": [
+      {
+        "k": "t",
+        "l": "HTML 片段",
+        "t": "area"
+      }
+    ],
+    "tpl": "",
+    "fn": "htmlEscape",
+    "out": "txt",
+    "lang": null,
+    "ext": "txt",
+    "mode": "urgent"
+  },
+  {
+    "id": "u-replace",
+    "name": "查找替换",
+    "cat": "文本",
+    "desc": "批量替换，不用开编辑器。",
+    "io": [
+      {
+        "k": "t",
+        "l": "文本",
+        "t": "area"
+      },
+      {
+        "k": "find",
+        "l": "查找",
+        "t": "text"
+      },
+      {
+        "k": "repl",
+        "l": "替换为",
+        "t": "text"
+      }
+    ],
+    "tpl": "",
+    "fn": "replaceText",
+    "out": "txt",
+    "lang": null,
+    "ext": "txt",
+    "mode": "urgent"
+  },
+  {
+    "id": "u-trim",
+    "name": "行首尾去空格",
+    "cat": "文本",
+    "desc": "把每行的空格清干净。",
+    "io": [
+      {
+        "k": "t",
+        "l": "文本",
+        "t": "area"
+      }
+    ],
+    "tpl": "",
+    "fn": "trimLines",
+    "out": "txt",
+    "lang": null,
+    "ext": "txt",
+    "mode": "urgent"
+  },
+  {
+    "id": "u-squeeze",
+    "name": "压缩空行",
+    "cat": "文本",
+    "desc": "多个空行并成一个。",
+    "io": [
+      {
+        "k": "t",
+        "l": "文本",
+        "t": "area"
+      }
+    ],
+    "tpl": "",
+    "fn": "squeeze",
+    "out": "txt",
+    "lang": null,
+    "ext": "txt",
+    "mode": "urgent"
+  },
+  {
+    "id": "u-num",
+    "name": "数字千分位",
+    "cat": "数据",
+    "desc": "1234567 → 1,234,567。",
+    "io": [
+      {
+        "k": "n",
+        "l": "数字",
+        "t": "number"
+      },
+      {
+        "k": "dec",
+        "l": "小数位",
+        "t": "number"
+      }
+    ],
+    "tpl": "",
+    "fn": "numFmt",
+    "out": "txt",
+    "lang": null,
+    "ext": "txt",
+    "mode": "urgent"
+  },
+  {
+    "id": "u-date",
+    "name": "日期格式化",
+    "cat": "时间",
+    "desc": "ISO 转成你要的样式。",
+    "io": [
+      {
+        "k": "d",
+        "l": "ISO 日期",
+        "t": "text"
+      },
+      {
+        "k": "fmt",
+        "l": "格式",
+        "t": "text"
+      }
+    ],
+    "tpl": "",
+    "fn": "dateFmt",
+    "out": "txt",
+    "lang": null,
+    "ext": "txt",
+    "mode": "urgent"
+  },
+  {
+    "id": "u-draw",
+    "name": "随机抽取",
+    "cat": "随机",
+    "desc": "从名单里随机抽人，公平透明。",
+    "io": [
+      {
+        "k": "t",
+        "l": "名单 (每行一个)",
+        "t": "area"
+      },
+      {
+        "k": "k",
+        "l": "抽取数量",
+        "t": "number"
+      }
+    ],
+    "tpl": "",
+    "fn": "randomPick",
+    "out": "txt",
+    "lang": null,
+    "ext": "txt",
+    "mode": "urgent"
+  },
+  {
+    "id": "u-diff",
+    "name": "文本对比",
+    "cat": "工具",
+    "desc": "两段文本，哪行不一样一眼看到。",
+    "io": [
+      {
+        "k": "a",
+        "l": "文本 A",
+        "t": "area"
+      },
+      {
+        "k": "b",
+        "l": "文本 B",
+        "t": "area"
+      }
+    ],
+    "tpl": "",
+    "fn": "lineDiff",
+    "out": "txt",
+    "lang": null,
+    "ext": "txt",
+    "mode": "urgent"
+  }
+]
