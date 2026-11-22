@@ -14,7 +14,8 @@ const API = `https://api.github.com/repos/${OWNER}/${REPO}`;
 const H = { Authorization: 'token ' + token, Accept: 'application/vnd.github+json', 'Content-Type': 'application/json' };
 
 const ROOT = path.join(__dirname, '..');
-const EXCLUDE_DIRS = new Set(['node_modules', '.git', 'config']);
+const EXCLUDE_DIRS = new Set(['node_modules', '.git', 'config', 'dist']);
+const EXCLUDE_FILES = new Set(['build.log']);
 
 // ---------- collect files ----------
 function walk(dir) {
@@ -23,7 +24,7 @@ function walk(dir) {
     const p = path.join(dir, e.name);
     const rel = path.relative(ROOT, p).replace(/\\/g, '/');
     if (e.isDirectory()) { if (!EXCLUDE_DIRS.has(e.name)) out.push(...walk(p)); }
-    else out.push(rel);
+    else if (!EXCLUDE_FILES.has(e.name)) out.push(rel);
   }
   return out;
 }
