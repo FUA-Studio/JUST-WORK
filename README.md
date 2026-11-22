@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="assets/logo/wordmark.svg" alt="JUST WORK — FUA Studio" width="340" />
+<img src="assets/logo/wordmark.svg" alt="JUST WORK — FUA Studio" width="460" />
 
 <br/>
 
@@ -21,15 +21,12 @@
 <img src="https://img.shields.io/badge/license-MIT-green.svg" alt="license"/>
 <img src="https://img.shields.io/badge/Electron-31-blueviolet.svg" alt="electron"/>
 <img src="https://img.shields.io/badge/skills-120-orange.svg" alt="skills"/>
-<img src="https://img.shields.io/badge/offline-100%25-brightgreen.svg" alt="offline"/>
 
 <br/>
 
 <img src="https://img.shields.io/github/stars/FUA-Studio/JUST-WORK?label=&star=true&style=flat" alt="stars"/>
 <img src="https://img.shields.io/github/forks/FUA-Studio/JUST-WORK?label=&fork=true&style=flat" alt="forks"/>
-<img src="https://img.shields.io/github/watchers/FUA-Studio/JUST-WORK?label=&logo=github&style=flat" alt="watchers"/>
 <img src="https://img.shields.io/github/issues/FUA-Studio/JUST-WORK?style=flat" alt="issues"/>
-<img src="https://img.shields.io/github/v/release/FUA-Studio/JUST-WORK?style=flat" alt="release"/>
 
 </div>
 

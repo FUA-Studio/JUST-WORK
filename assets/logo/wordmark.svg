@@ -1,13 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 128" width="380" height="128">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 132" width="480" height="132">
   <defs>
-    <linearGradient id="jw-light2" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#fbfcff"/>
-      <stop offset="1" stop-color="#edf0f7"/>
+    <linearGradient id="jw-ink" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1d2333"/>
+      <stop offset="1" stop-color="#12151f"/>
     </linearGradient>
   </defs>
-  <rect x="4" y="4" width="120" height="120" rx="28" fill="url(#jw-light2)" stroke="#d6dce9" stroke-width="3"/>
-  <path d="M56 30 L56 84 L40 100 L27 93" fill="none" stroke="#1b2130" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="102" cy="36" r="8" fill="#f5b841"/>
-  <text x="146" y="70" font-family="Inter, 'Segoe UI', 'PingFang SC', sans-serif" font-size="46" font-weight="800" fill="#171a21" letter-spacing="-1">JUST WORK</text>
-  <text x="148" y="98" font-family="Inter, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#8b93a4" letter-spacing="6">FUA STUDIO</text>
+  <rect x="2" y="2" width="476" height="128" rx="26" fill="url(#jw-ink)" stroke="#2b3346" stroke-width="2"/>
+  <path d="M54 34 L54 82 L38 96 L26 90" fill="none" stroke="#ffffff" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="84" cy="36" r="8" fill="#f5b841"/>
+  <text x="124" y="66" font-family="Inter, 'Segoe UI', 'PingFang SC', sans-serif" font-size="40" font-weight="800" fill="#ffffff" letter-spacing="-1">JUST WORK</text>
+  <text x="126" y="94" font-family="Inter, 'Segoe UI', sans-serif" font-size="13" font-weight="700" fill="#9aa3b5" letter-spacing="5">FUA STUDIO</text>
 </svg>
