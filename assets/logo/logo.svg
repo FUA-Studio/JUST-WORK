@@ -1,16 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
   <defs>
-    <linearGradient id="jw-ink" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#262c3d"/>
-      <stop offset="1" stop-color="#141824"/>
+    <linearGradient id="jw-light" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fbfcff"/>
+      <stop offset="1" stop-color="#edf0f7"/>
     </linearGradient>
   </defs>
-  <rect x="8" y="8" width="112" height="112" rx="30" fill="url(#jw-ink)"/>
-  <g fill="#ffffff">
-    <rect x="28" y="34" width="64" height="16" rx="4"/>
-    <rect x="56" y="34" width="24" height="66" rx="4"/>
-    <rect x="40" y="84" width="40" height="16" rx="4"/>
-    <rect x="32" y="66" width="24" height="34" rx="4"/>
-  </g>
-  <circle cx="100" cy="36" r="7" fill="#f5b841"/>
+  <rect x="8" y="8" width="112" height="112" rx="30" fill="url(#jw-light)" stroke="#d6dce9" stroke-width="3"/>
+  <path d="M62 34 L62 74 L47 88 L35 82" fill="none" stroke="#1b2130" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="98" cy="36" r="7.5" fill="#f5b841"/>
 </svg>
