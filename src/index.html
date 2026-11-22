@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; script-src 'self'">
+        content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; script-src 'self'; connect-src https: http:" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>JUST WORK · FUA Studio</title>
   <link rel="stylesheet" href="styles.css" />
@@ -11,102 +11,271 @@
 <body>
   <div id="app" class="app" data-mode="just-working">
 
-    <!-- ============ LEFT RAIL : logo + mode switcher ============ -->
-    <aside class="rail">
-      <div class="rail-logo" title="JUST WORK · FUA Studio">
-        <img id="railLogo" src="../assets/logo/logo.svg" alt="JUST WORK" />
+    <!-- ============ 侧边栏 ============ -->
+    <aside class="sidebar">
+      <div class="brand">
+        <img class="brand-logo" src="../assets/logo/logo.svg" alt="" />
+        <div class="brand-text">
+          <div class="brand-name">JUST WORK</div>
+          <div class="brand-sub">FUA Studio</div>
+        </div>
       </div>
-      <div class="rail-modes" role="tablist" aria-label="工作模式">
-        <button class="mode-btn" data-mode="just-working" title="Just Working · 日常">
-          <span class="mode-ic">☀</span><span class="mode-tl">Just</span>
+
+      <div class="side-group">
+        <div class="side-label">模式</div>
+        <nav class="modes" role="tablist" aria-label="工作模式">
+          <button class="mode-item" data-mode="just-working" role="tab">
+            <span class="mi-ic"><svg viewBox="0 0 24 24"><use href="#i-sun" /></svg></span>
+            <span class="mi-tx"><b>Just Working</b><small>日常办公 · 汇报 · 简历</small></span>
+          </button>
+          <button class="mode-item" data-mode="agent" role="tab">
+            <span class="mi-ic"><svg viewBox="0 0 24 24"><use href="#i-code" /></svg></span>
+            <span class="mi-tx"><b>Agent</b><small>开发 · 工程 · 难题</small></span>
+          </button>
+          <button class="mode-item" data-mode="urgent" role="tab">
+            <span class="mi-ic"><svg viewBox="0 0 24 24"><use href="#i-bolt" /></svg></span>
+            <span class="mi-tx"><b>Urgent</b><small>轻量 · 快速 · 省心</small></span>
+          </button>
+        </nav>
+      </div>
+
+      <div class="side-group">
+        <div class="side-label">工作区</div>
+        <button class="side-link" id="newChatBtn" type="button">
+          <svg viewBox="0 0 24 24"><use href="#i-plus" /></svg>新建对话
         </button>
-        <button class="mode-btn" data-mode="agent" title="Agent · 技术 / Coding">
-          <span class="mode-ic">⌗</span><span class="mode-tl">Agent</span>
-        </button>
-        <button class="mode-btn" data-mode="urgent" title="Urgent · 快 & 省">
-          <span class="mode-ic">⚡</span><span class="mode-tl">Urgent</span>
+        <button class="side-link" id="libraryBtn" type="button">
+          <svg viewBox="0 0 24 24"><use href="#i-grid" /></svg>技能库<span class="side-cnt" id="libCount">55</span>
         </button>
       </div>
-      <div class="rail-foot">
-        <div class="studio">FUA<br>STUDIO</div>
+
+      <div class="side-foot">
+        <span id="footVer">v1.0.0</span>
+        <span class="sep-dot"></span>
+        <span>本地运行</span>
       </div>
     </aside>
 
-    <!-- ============ MAIN STAGE ============ -->
-    <main class="stage">
-      <!-- top bar -->
+    <!-- ============ 主区：对话 ============ -->
+    <main class="main">
       <header class="topbar">
-        <div class="topbar-brand">
-          <span class="brand-mark">JUST WORK</span>
-          <span class="brand-mode" id="brandMode">Just Working</span>
+        <div class="tb-left">
+          <h1 id="pageTitle">Just Working</h1>
+          <span class="tb-pill" id="tbPill">55 个技能</span>
         </div>
-        <div class="topbar-tools">
-          <div class="search" id="searchBox">
-            <input id="searchInput" type="search" placeholder="搜索 skill / 模块…" autocomplete="off" />
-            <span class="search-ic">⌕</span>
-          </div>
-          <span class="count-chip" id="countChip">0 skills</span>
-          <span class="urg-switch" id="urgSwitch" title="Agent ⇄ Urgent 快省模式" hidden>
-            <span class="us-lbl">Urgent</span>
-            <span class="us-track"><span class="us-knob"></span></span>
-          </span>
+        <div class="tb-right">
+          <button class="switch" id="urgSwitch" type="button" title="Agent 与 Urgent 互切" hidden>
+            <span class="sw-lbl">Urgent</span>
+            <span class="sw-track"><i></i></span>
+          </button>
         </div>
       </header>
 
-      <!-- hero / module grid -->
-      <section class="hero" id="hero">
-        <div class="hero-title" id="heroTitle">今天，一件一件把它做完。</div>
-        <div class="hero-sub" id="heroSub">点一个模块，直接开干。</div>
-      </section>
+      <div class="thread" id="thread">
+        <div class="inner">
+          <section class="welcome" id="welcome">
+            <div class="hero-eyebrow" id="heroEyebrow">默认模式</div>
+            <h2 class="hero-title" id="heroTitle">今天想先做点什么？</h2>
+            <p class="hero-sub" id="heroSub">直接说一句，或者从下面挑一个技能。</p>
+          </section>
+          <div class="msgs" id="msgs"></div>
+        </div>
+      </div>
 
-      <!-- module grid (one-click entry) -->
-      <section class="grid" id="grid" role="list"></section>
-
-      <!-- empty / no-search state -->
-      <section class="empty" id="empty" hidden>
-        <div class="empty-ic">∅</div>
-        <div class="empty-tl">没有找到匹配的 skill</div>
-        <div class="empty-sub">换个关键词，或切换模式试试。</div>
-      </section>
+      <div class="composer-wrap">
+        <div class="inner">
+          <div class="quick" id="quick" aria-label="快捷技能"></div>
+          <form class="composer" id="composer">
+            <textarea id="prompt" rows="1" placeholder="描述你要完成的事…" spellcheck="false"></textarea>
+            <div class="composer-bar">
+              <button class="chip-btn" id="skillPicker" type="button">
+                <svg viewBox="0 0 24 24"><use href="#i-plus" /></svg>技能
+              </button>
+              <button class="chip-btn model-btn" id="modelBtn" type="button">
+                <span class="model-dot"></span><span id="modelLabel">DeepSeek V4</span>
+                <svg class="ci" viewBox="0 0 24 24"><use href="#i-chevron" /></svg>
+              </button>
+              <span class="bar-hint">Enter 发送 · Shift + Enter 换行</span>
+              <button class="send" id="sendBtn" type="submit" aria-label="发送">
+                <svg viewBox="0 0 24 24"><use href="#i-up" /></svg>
+              </button>
+            </div>
+            <div class="model-menu" id="modelMenu" hidden>
+              <div class="mm-head">选择模型</div>
+              <div class="mm-list" id="mmList"></div>
+              <button class="mm-add" id="mmAdd" type="button">
+                <svg viewBox="0 0 24 24"><use href="#i-plus" /></svg>添加模型
+              </button>
+            </div>
+          </form>
+          <div class="composer-foot" id="composerFoot">由 FUA Studio 提供 · 全部在本地生成</div>
+        </div>
+      </div>
     </main>
 
-    <!-- ============ WORKSPACE DRAWER (detail) ============ -->
-    <aside class="drawer" id="drawer" hidden>
-      <div class="drawer-head">
-        <button class="drawer-close" id="drawerClose" aria-label="返回">←</button>
+    <!-- ============ 技能库弹层 ============ -->
+    <div class="scrim" id="scrim" hidden></div>
+    <section class="library" id="library" hidden aria-label="技能库">
+      <header class="lib-head">
+        <label class="lib-search">
+          <svg viewBox="0 0 24 24"><use href="#i-search" /></svg>
+          <input id="libSearch" type="search" placeholder="搜索技能…" autocomplete="off" spellcheck="false" />
+        </label>
+        <button class="lib-add lib-imp" id="libImport" type="button">
+          <svg viewBox="0 0 24 24"><use href="#i-file" /></svg>导入 SKILL.md
+        </button>
+        <input id="skillFile" type="file" accept=".md,.markdown,text/markdown" multiple hidden />
+        <button class="lib-add" id="libAdd" type="button">
+          <svg viewBox="0 0 24 24"><use href="#i-plus" /></svg>新建技能
+        </button>
+        <button class="icon-btn" id="libClose" type="button" aria-label="关闭">
+          <svg viewBox="0 0 24 24"><use href="#i-close" /></svg>
+        </button>
+      </header>
+      <div class="lib-cats" id="libCats"></div>
+      <div class="lib-list" id="libList"></div>
+    </section>
+
+    <!-- ============ 技能面板 ============ -->
+    <aside class="drawer" id="drawer" hidden aria-label="技能详情">
+      <header class="drawer-head">
         <div class="drawer-id">
-          <div class="drawer-cat" id="drawerCat">模块</div>
-          <div class="drawer-name" id="drawerName">Skill</div>
-          <div class="drawer-desc" id="drawerDesc"></div>
+          <span class="drawer-cat" id="drawerCat">文档</span>
+          <h3 class="drawer-name" id="drawerName">技能</h3>
+          <p class="drawer-desc" id="drawerDesc"></p>
         </div>
-      </div>
+        <button class="icon-btn" id="drawerClose" type="button" aria-label="关闭">
+          <svg viewBox="0 0 24 24"><use href="#i-close" /></svg>
+        </button>
+      </header>
       <div class="drawer-body" id="drawerBody"></div>
-      <div class="drawer-out" id="drawerOut" hidden>
-        <div class="out-bar">
-          <span class="out-tl">输出</span>
-          <div class="out-acts">
-            <button id="copyBtn" class="out-btn">复制</button>
-            <button id="dlBtn" class="out-btn">保存</button>
-          </div>
-        </div>
-        <pre class="out-pre" id="outPre"></pre>
-      </div>
-      <div class="drawer-foot">
-        <button id="runBtn" class="run-btn">生成</button>
-        <button id="clearBtn" class="ghost-btn">清空</button>
-      </div>
+      <footer class="drawer-foot">
+        <button id="runBtn" class="run-btn" type="button">生成结果</button>
+        <button id="clearBtn" class="ghost-btn" type="button">清空</button>
+      </footer>
     </aside>
 
-    <!-- toast -->
-    <div class="toast" id="toast" hidden></div>
+    <!-- ============ 添加模型 ============ -->
+    <div class="modal" id="modelModal" hidden>
+      <div class="modal-card">
+        <header class="modal-head">
+          <h3>添加模型</h3>
+          <button class="icon-btn" id="modalClose" type="button" aria-label="关闭">
+            <svg viewBox="0 0 24 24"><use href="#i-close" /></svg>
+          </button>
+        </header>
+        <div class="modal-body">
+          <div class="field">
+            <label for="mName">显示名称<span class="req">*</span></label>
+            <input id="mName" type="text" placeholder="例如：我的 DeepSeek" />
+          </div>
+          <div class="field">
+            <label for="mProvider">提供商</label>
+            <select id="mProvider">
+              <option value="deepseek">DeepSeek</option>
+              <option value="openai">OpenAI</option>
+              <option value="anthropic">Anthropic</option>
+              <option value="google">Google</option>
+              <option value="custom">自定义 / 兼容接口</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="mId">模型 ID</label>
+            <input id="mId" type="text" placeholder="例如：deepseek-chat" />
+          </div>
+          <div class="field">
+            <label for="mBase">Base URL</label>
+            <input id="mBase" type="text" placeholder="https://api.deepseek.com/v1" />
+          </div>
+          <div class="field">
+            <label for="mKey">API Key</label>
+            <input id="mKey" type="password" placeholder="sk-…" autocomplete="off" />
+            <p class="field-tip">只保存在本机，不上传、不写入安装包。</p>
+          </div>
+        </div>
+        <footer class="modal-foot">
+          <button class="ghost-btn" id="modalCancel" type="button">取消</button>
+          <button class="run-btn" id="modalSave" type="button">保存并选用</button>
+        </footer>
+      </div>
+    </div>
 
-    <footer class="foot">
-      <span class="foot-studio" id="footVer">© 2026 FUA Studio · JUST WORK v1.0.0</span>
-      <span class="foot-note">本地运行 · 无需联网</span>
-    </footer>
+    <!-- ============ 新建技能 ============ -->
+    <div class="modal" id="skillModal" hidden>
+      <div class="modal-card">
+        <header class="modal-head">
+          <h3>新建技能</h3>
+          <button class="icon-btn" id="skClose" type="button" aria-label="关闭">
+            <svg viewBox="0 0 24 24"><use href="#i-close" /></svg>
+          </button>
+        </header>
+        <div class="modal-body">
+          <div class="field">
+            <label for="sName">技能名称<span class="req">*</span></label>
+            <input id="sName" type="text" placeholder="例如：我的日报" />
+          </div>
+          <div class="field">
+            <label for="sCat">分类</label>
+            <input id="sCat" type="text" placeholder="例如：我的技能" />
+          </div>
+          <div class="field">
+            <label for="sDesc">一句话描述</label>
+            <input id="sDesc" type="text" placeholder="在技能库里怎么介绍它" />
+          </div>
+          <div class="field">
+            <label for="sTpl">内容模板<span class="req">*</span></label>
+            <textarea id="sTpl" rows="7" spellcheck="false"></textarea>
+            <p class="field-tip">{{input}} 替换成你输入的原话，{{date}} 替换成今天日期。</p>
+          </div>
+        </div>
+        <footer class="modal-foot">
+          <button class="ghost-btn" id="skCancel" type="button">取消</button>
+          <button class="run-btn" id="skSave" type="button">保存技能</button>
+        </footer>
+      </div>
+    </div>
+
+    <div class="toast" id="toast" hidden></div>
   </div>
 
+  <!-- ============ 图标 ============ -->
+  <svg class="sprite" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+    <symbol id="i-code" viewBox="0 0 24 24"><path d="M8.5 6.5 3 12l5.5 5.5M15.5 6.5 21 12l-5.5 5.5"/></symbol>
+    <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2 4.5 13.5H11l-1 8.5L18.5 10.5H12z"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1.6"/><rect x="13" y="4" width="7" height="7" rx="1.6"/><rect x="4" y="13" width="7" height="7" rx="1.6"/><rect x="13" y="13" width="7" height="7" rx="1.6"/></symbol>
+    <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 20V5M6 11l6-6 6 6"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m7 10 5 5 5-5"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2.5"/><path d="M5.5 15V5.5a2 2 0 0 1 2-2H15"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12M7.5 10.5 12 15l4.5-4.5M4 21h16"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M21 20H3"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.4"/><path d="M2.6 20a6.4 6.4 0 0 1 12.8 0"/><path d="M17 5.2a3 3 0 0 1 0 5.6M18.2 14.6A5.6 5.6 0 0 1 21.4 20"/></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4.5 20.5a7.5 7.5 0 0 1 15 0"/></symbol>
+    <symbol id="i-pen" viewBox="0 0 24 24"><path d="M12.5 20H21"/><path d="M16.6 3.6a2.1 2.1 0 0 1 3 3L7.4 18.8 3 20l1.2-4.4z"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.6 7.2 8.4 6 8.4-6"/></symbol>
+    <symbol id="i-ppt" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M12 16v5M8 21h8"/></symbol>
+    <symbol id="i-briefcase" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M8.5 7V5.5a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2V7"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="m12 3 8 3v6c0 5-3.4 8.2-8 9-4.6-.8-8-4-8-9V6z"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="m8.2 12.2 2.6 2.6 5-5.2"/></symbol>
+    <symbol id="i-cube" viewBox="0 0 24 24"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9z"/><path d="m4 7.5 8 4.5 8-4.5M12 12v9"/></symbol>
+    <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2.2"/><circle cx="10" cy="17" r="2.2"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.2V12l3.2 2"/></symbol>
+    <symbol id="i-swap" viewBox="0 0 24 24"><path d="M4 7h13l-3-3M20 17H7l3 3"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3.5l1.9 5.3 5.3 1.9-5.3 1.9L12 18l-1.9-5.4L4.8 10.7l5.3-1.9z"/></symbol>
+    <symbol id="i-type" viewBox="0 0 24 24"><path d="M4 6.5V4.5h16v2M12 4.5V20M8.5 20h7"/></symbol>
+    <symbol id="i-server" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="7" rx="2"/><rect x="3" y="13" width="18" height="7" rx="2"/><path d="M7 7.5h.01M7 16.5h.01"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5z"/><path d="m3 13 9 5 9-5"/></symbol>
+    <symbol id="i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></symbol>
+    <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M7.5 18.5h9a4 4 0 0 0 .5-8 6 6 0 0 0-11.4 1.4 3.3 3.3 0 0 0 1.9 6.6z"/></symbol>
+  </svg>
+
   <script src="logic.js"></script>
+  <script src="skillsmd.js"></script>
   <script src="renderer.js"></script>
 </body>
 </html>

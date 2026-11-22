@@ -4,16 +4,7 @@
 
 <br/>
 
-**FUA JUST Working** · 简称 **JUST WORK**<br/>
-一个界面**简约大气**的桌面工作助手 —— 把事一件一件做完。
-
-<br/>
-
-**Just Working** · **Agent** · **Urgent** 三模式 · 共 **120** 个 skill · 本地运行 · 无需联网
-
-<br/>
-
-<sub>由 <b>FUA Studio</b> 开发</sub>
+**JUST WORK** 是一个桌面工作助手：一个对话框 + 120 个技能。把要做的事说一句话，它给你一版能直接用的结果。
 
 <br/>
 
@@ -24,46 +15,65 @@
 
 <br/>
 
-<img src="https://img.shields.io/github/stars/FUA-Studio/JUST-WORK?label=&star=true&style=flat" alt="stars"/>
-<img src="https://img.shields.io/github/forks/FUA-Studio/JUST-WORK?label=&fork=true&style=flat" alt="forks"/>
 <img src="https://img.shields.io/github/issues/FUA-Studio/JUST-WORK?style=flat" alt="issues"/>
 
 </div>
 
 ---
 
-## 这是什么
+## 下载
 
-JUST WORK 是一个**桌面端**（Electron）智能工作助手，不是网页。它把常见工作场景拆成一个个「模块」，
-你从界面上点一下就进入对应工作，填入信息，一键生成结构化产出（文档 / 代码 / 清单 / 数据），可以复制或保存。
+Windows x64，两个都是单文件 exe，不用解压：
 
-设计原则：**简约**（整洁、不乱、层级清楚）+ **大气**（留白舒展、配色高级、排版有分量）。
+- 安装包：`JUST-WORK-1.0.0-x64.exe`（双击安装）
+- 便携版：`JUST-WORK-1.0.0-portable.exe`（双击直接跑，不写注册表）
+
+到 [Releases](https://github.com/FUA-Studio/JUST-WORK/releases) 下载。
+
+## 它怎么干活
+
+就两条路，没有第三种：
+
+1. **接了模型**：填了 Base URL + API Key，技能就转成提示词真的发给模型，模型回什么显示什么。
+2. **没接模型**：用内置的本地模板 + 纯函数出结果，界面会标清楚「本地模板版」，不会假装是模型跑的。
+
+模型接口走 OpenAI 兼容的 `/chat/completions`，在主进程发请求，绕开 CORS，Key 只存本机 `localStorage`，不上传、不进安装包。
 
 ## 三种模式
 
-| 模式 | 定位 | Skill 数 | 适配人群 |
-|---|---|---|---|
-| **Just Working**（默认） | 界面简洁明了，日常工作 / PPT / Word / 报表 / 简历 | **55** | 没有技术基础也能轻松上手 |
-| **Agent** | 什么任务都支持：脏活、累活、大任务、难任务；界面为 coding 场景优化 | **40** | 技术 / 工程 |
-| **Urgent** | 通过 Agent 的开关一键切换；速度快、简单任务不绕弯、省钱 | **25** | 日常轻量 |
+| 模式 | 干什么的 | 预置技能 |
+|---|---|---|
+| Just Working（默认） | 文档、PPT、邮件、报表、简历 | 55 |
+| Agent | 算法、后端、数据库、DevOps、安全 | 40 |
+| Urgent | 文本、编码、时间、随机、数据转换 | 25 |
 
-- **Just Working**：默认模式。打开即是一个模块网格，点一个模块即可开始工作。
-- **Agent**：面向 coding 与技术工作，界面按工程场景组织，内置 40 个技术 skill。
-- **Urgent**：从 Agent 用开关切到「快 & 省」状态，25 个轻量万能工具，即点即得。
+Urgent 跟 Agent 用右上角开关互切。
 
-## 下载
+## 配模型
 
-到 **Releases** 页拿对应版本的安装包 / 便携版：
-<https://github.com/FUA-Studio/JUST-WORK/releases>
+右下角模型按钮 → 选一个或「添加模型」，填：
 
-- 安装包：`JUST-WORK-x.x.x-setup.exe`
-- 便携版：`JUST-WORK-x.x.x-portable.exe`（免安装，双击即用）
+- 显示名称、提供商（DeepSeek / OpenAI / Anthropic / Google / 自定义）
+- 模型 ID、Base URL、API Key
 
-## 快捷键
+预置的几个只是模板，点进去照样要你填 Key 才真发请求。DeepSeek、OpenAI、Gemini 的兼容层、多数中转网关都能直接用；Anthropic 原生接口不是 OpenAI 格式，得走兼容网关。
 
-- `Esc` 关闭当前模块抽屉
-- `Ctrl / ⌘ + K` 聚焦搜索
+## 加技能
+
+- **导入 SKILL.md**：技能库右上角，一个 markdown 文件就是一个技能（frontmatter 的 name / description + 正文当任务说明）。
+- **新建技能**：填名称、分类、模板，模板里 `{{input}}` 是你输入的原话、`{{date}}` 是今天。
+- 导入的和新建的都存本机，能删。
+
+## 自己跑
+
+```
+npm install
+npm start        # 起应用
+npm run dist:win # 出安装包 + 便携 exe
+```
+
+打包用 electron-builder。没装 git 的话，`scripts/upload.js` 走 GitHub API 推代码、`scripts/publish-release.js` 发 Release。
 
 ## 许可
 
-**GPL-3.0** © 2026 FUA Studio。
+GPL-3.0，见 [LICENSE](LICENSE)。

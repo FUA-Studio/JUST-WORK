@@ -15,7 +15,7 @@ const H = { Authorization: 'token ' + token, Accept: 'application/vnd.github+jso
 
 const ROOT = path.join(__dirname, '..');
 const EXCLUDE_DIRS = new Set(['node_modules', '.git', 'config', 'dist']);
-const EXCLUDE_FILES = new Set(['build.log']);
+const EXCLUDE_FILES = new Set(['build.log', 'build-elevated.log', 'build-elevated.bat', 'build-elevated-done.txt']);
 
 // ---------- collect files ----------
 function walk(dir) {
