@@ -12,9 +12,10 @@
 | 执行引擎 | 触发条件 | 真实程度 |
 |---|---|---|
 | 模型执行 | 模型里填了 Base URL + API Key | 真的发 HTTP 请求，模型输出什么就显示什么 |
-| 本地模板 | 没有 Key | 字符串模板 + 纯函数，不联网、不智能 |
+| 纯计算工具（Urgent） | 不需要 Key | 本地纯函数真算（CSV→JSON、Base64、UUID 等），出的是真结果 |
+| 提示配模型 | 没有 Key，且命中的不是纯计算技能 | **不生成任何内容**，只提示去配模型；不拿模板 / 草稿冒充结果 |
 
-没有第三种。界面上所有"生成"都来自这两条路径之一，不存在伪装的假结果。
+界面上所有"生成"都来自上面之一。没配 Key 时，非计算类技能不会吐出模板或草稿——那是假内容，已经去掉。
 
 ---
 
@@ -36,13 +37,13 @@ Urgent 通过右上角开关与 Agent 互切。
 模型按钮 → 选一个 → 弹出配置框，填：
 
 - **显示名称**：随便写，会出现在按钮和回复里
-- **提供商**：DeepSeek / OpenAI / Anthropic / Google / 自定义
-- **模型 ID**：如 `deepseek-chat`、`gpt-4o-mini`
-- **Base URL**：如 `https://api.deepseek.com/v1`（留空会按提供商自动补默认值）
+- **提供商**：AGNES / DeepSeek / OpenAI / Anthropic / Google / 自定义
+- **模型 ID**：如 `agnes-3.0-flash`、`deepseek-chat`
+- **Base URL**：如 `https://apihub.agnes-ai.cn/v1`（AGNES；留空会按提供商自动补默认值）
 - **API Key**：存在本机 `localStorage`，不上传、不写进安装包
 
 点「保存并选用」后会变成你自己的模型（菜单里标「已连接」）。
-预置的 5 个模型只是模板，点它们会直接跳到这个配置框——**必须填 Key 才会真正发请求**。
+预置的是 4 个 AGNES 模型（3.0-flash / 3.0-pro / 2.5-flash / 2.5-pro，列表来自 `GET /v1/models` 实测），点它们会跳到配置框——**必须填 Key 才会真正发请求**。
 
 请求路径：
 `渲染层 callModel() → preload 暴露的 window.jw.chat → 主进程 ipcMain 'llm:chat' → https 请求 → 回传文本`
@@ -50,7 +51,7 @@ Urgent 通过右上角开关与 Agent 互切。
 走主进程是刻意的：避开渲染层 CORS，也让 Key 不出现在页面网络面板里。
 
 接口协议：**OpenAI 兼容**（`POST {base}/chat/completions`）。
-DeepSeek、OpenAI、Gemini 的 OpenAI 兼容层、多数中转网关可直接用；
+AGNES（apihub.agnes-ai.cn/.com/v1）、DeepSeek、OpenAI、Gemini 的 OpenAI 兼容层、多数中转网关可直接用；
 **Anthropic 原生接口不是这个格式**，需要兼容网关，否则会报 HTTP 4xx。
 
 ---
@@ -63,9 +64,10 @@ DeepSeek、OpenAI、Gemini 的 OpenAI 兼容层、多数中转网关可直接用
    - 中文按二字词命中名称 +2（所以「帮我写周报」能命中「工作周报」）
    - 阈值 ≥2 才算命中
 2. 命中且**有 Key** → 技能定义转成 system prompt，你的原话作为 user，真实调用模型
-3. 命中且**没 Key** → 本地模板填空，界面会明确写「本地模板版」
-4. 没命中且**有 Key** → 当普通对话，直接调模型回答（不需要套技能）
-5. 没命中且**没 Key** → `directReply()` 按关键词（邮件 / 周报 / 总结 / 计划 / 通用）给一版结构草稿
+3. 命中纯计算技能（`fn`，Urgent）且**没 Key** → 直接开表单本地真算，不依赖模型
+4. 命中其他技能且**没 Key** → 不生成内容，提示去配模型（`showModelNeeded`）
+5. 没命中且**有 Key** → 当普通对话，直接调模型回答（不需要套技能）
+6. 没命中且**没 Key** → 同样只提示配模型，不再给草稿 / 模板
 
 ### 技能转 prompt 的规则（`systemFor`）
 - 内置技能：`你是「技能名」助手 + 任务描述 + 参考输出结构（tpl）`
