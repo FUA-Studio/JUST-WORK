@@ -20,9 +20,9 @@ async function j(method, url, body) {
   return out;
 }
 
-// find dist artifacts
+// find dist artifacts (single-file exes; the old zip gets dropped below)
 const dist = path.join(__dirname, '..', 'dist');
-const assets = fs.readdirSync(dist).filter((f) => /\.(zip|exe)$/i.test(f) && fs.statSync(path.join(dist, f)).isFile());
+const assets = fs.readdirSync(dist).filter((f) => /\.exe$/i.test(f) && fs.statSync(path.join(dist, f)).isFile());
 console.log('  assets to attach:', assets.join(', ') || '(none)');
 
 async function getRelease() {
@@ -41,15 +41,25 @@ async function getRelease() {
       target_commitish: 'main',
       name: `JUST WORK ${version}`,
       draft: false, prerelease: false,
-      body: ['# JUST WORK ' + version, '', 'FUA Studio · 桌面工作助手（三模式 · 120 skill · 本地运行）。', '', '## 安装', '- **便携版**：下载 JUST-WORK-' + version + '-portable-win-x64.zip，解压后双击 "JUST WORK.exe" 即可，免安装。', '', 'Windows x64。'].join('\n')
+      body: ['# JUST WORK ' + version, '', 'FUA Studio · 桌面工作助手（三模式 · 120 技能）。', '', '## 安装', '- 安装包：JUST-WORK-' + version + '-x64.exe，双击安装。', '- 便携版：JUST-WORK-' + version + '-portable.exe，双击直接跑，免安装免解压。', '', 'Windows x64。'].join('\n')
     });
     console.log('  +release', rel.tag_name, rel.html_url);
   } else {
     console.log('  release exists:', rel.tag_name);
   }
 
-  // attach assets
+  // drop old zip assets (we ship single-file exes now)
+  for (const a of rel.assets || []) {
+    if (/\.zip$/i.test(a.name)) {
+      const r = await fetch(API + `/releases/assets/${a.id}`, { method: 'DELETE', headers: H });
+      console.log(`  -asset ${a.name} ${r.ok ? '(deleted)' : '(still there, ' + r.status + ')'}`);
+    }
+  }
+
+  // attach assets (skip ones already uploaded)
+  const have = new Set((rel.assets || []).map((a) => a.name));
   for (const a of assets) {
+    if (have.has(a)) { console.log('  =asset exists:', a); continue; }
     const p = path.join(dist, a);
     const buf = fs.readFileSync(p);
     const base = rel.upload_url.replace(/\{.*$/, '').replace(/\?.*$/, '');

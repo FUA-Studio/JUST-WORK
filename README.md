@@ -8,7 +8,7 @@
 
 <br/>
 
-<img src="https://img.shields.io/badge/version-1.0.0-blue.svg" alt="version"/>
+<img src="https://img.shields.io/badge/version-1.0.1-blue.svg" alt="version"/>
 <img src="https://img.shields.io/badge/license-GPLv3-blue.svg" alt="license"/>
 <img src="https://img.shields.io/badge/Electron-31-blueviolet.svg" alt="electron"/>
 <img src="https://img.shields.io/badge/skills-120-orange.svg" alt="skills"/>
@@ -25,8 +25,8 @@
 
 Windows x64，两个都是单文件 exe，不用解压：
 
-- 安装包：`JUST-WORK-1.0.0-x64.exe`（双击安装）
-- 便携版：`JUST-WORK-1.0.0-portable.exe`（双击直接跑，不写注册表）
+- 安装包：`JUST-WORK-1.0.1-x64.exe`（双击安装）
+- 便携版：`JUST-WORK-1.0.1-portable.exe`（双击直接跑，不写注册表）
 
 到 [Releases](https://github.com/FUA-Studio/JUST-WORK/releases) 下载。
 
