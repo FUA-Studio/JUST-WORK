@@ -188,7 +188,14 @@
 
   function run(skill, vals) {
     if (skill.fn && BUILTINS[skill.fn]) return BUILTINS[skill.fn](vals);
-    return interpolate(skill.tpl, vals);
+    const v = Object.assign({}, vals || {});
+    // {{date}} 始终可用：没填就取今天（模板字段里的显式 date 优先）
+    if (!String(v.date ?? "").trim()) {
+      const d = new Date();
+      const p = (x) => String(x).padStart(2, "0");
+      v.date = d.getFullYear() + "-" + p(d.getMonth() + 1) + "-" + p(d.getDate());
+    }
+    return interpolate(skill.tpl, v);
   }
 
   const API = { BUILTINS, interpolate, run, cap, splitLines };

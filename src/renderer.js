@@ -71,11 +71,10 @@
   };
 
   const BUILTIN_MODELS = [
-    { id: "deepseek-v4", name: "DeepSeek V4", tag: "推荐", provider: "deepseek", model: "deepseek-chat", base: "https://api.deepseek.com/v1" },
-    { id: "deepseek-v3", name: "DeepSeek V3", tag: "", provider: "deepseek", model: "deepseek-chat", base: "https://api.deepseek.com/v1" },
-    { id: "claude-sonnet", name: "Claude Sonnet", tag: "", provider: "anthropic", model: "claude-sonnet-4-20250514", base: "https://api.anthropic.com/v1" },
-    { id: "gpt-5", name: "GPT-5", tag: "", provider: "openai", model: "gpt-5", base: "https://api.openai.com/v1" },
-    { id: "gemini-pro", name: "Gemini Pro", tag: "", provider: "google", model: "gemini-2.5-pro", base: "https://generativelanguage.googleapis.com/v1beta/openai" }
+    { id: "agnes-3-flash", name: "AGNES 3.0 Flash", tag: "推荐", provider: "agnes", model: "agnes-3.0-flash", base: "https://apihub.agnes-ai.cn/v1" },
+    { id: "agnes-3-pro", name: "AGNES 3.0 Pro", tag: "", provider: "agnes", model: "agnes-3.0-pro", base: "https://apihub.agnes-ai.cn/v1" },
+    { id: "agnes-25-flash", name: "AGNES 2.5 Flash", tag: "轻量", provider: "agnes", model: "agnes-2.5-flash", base: "https://apihub.agnes-ai.cn/v1" },
+    { id: "agnes-25-pro", name: "AGNES 2.5 Pro", tag: "", provider: "agnes", model: "agnes-2.5-pro", base: "https://apihub.agnes-ai.cn/v1" }
   ];
 
   const state = {
@@ -86,7 +85,7 @@
     libQuery: "",
     open: null,
     msgCount: 0,
-    modelId: "deepseek-v4",
+    modelId: "agnes-3-flash",
     customModels: [],
     customSkills: [],
     importedSkills: []
@@ -251,7 +250,7 @@
 
   function loadModels() {
     state.customModels = store.get("jw.customModels", []);
-    const saved = store.get("jw.modelId", "deepseek-v4");
+    const saved = store.get("jw.modelId", "agnes-3-flash");
     if (allModels().some((m) => m.id === saved)) state.modelId = saved;
   }
 
@@ -261,8 +260,8 @@
     const m = currentModel();
     $("#modelLabel").textContent = m.name;
     $("#composerFoot").textContent = m.key
-      ? `当前模型：${m.name} · 已配置接口，导入的技能会真的调用它`
-      : `当前模型：${m.name} · 未配置 API Key，只能用本地模板`;
+      ? `当前模型：${m.name} · 已配置接口，会真的调用模型`
+      : `当前模型：${m.name} · 未配置 API Key，模型类技能不可用（Urgent 纯计算工具仍可用）`;
     renderModelMenu();
   }
 
@@ -411,21 +410,6 @@
     return wrap;
   }
 
-  function suggestionChips(list) {
-    const box = document.createElement("div");
-    box.className = "suggest";
-    list.forEach((s) => {
-      const b = document.createElement("button");
-      b.type = "button";
-      b.className = "sugg";
-      b.textContent = s.name;
-      b.title = s.desc;
-      b.addEventListener("click", () => activateSkill(s));
-      box.appendChild(b);
-    });
-    return box;
-  }
-
   async function copyText(text) {
     try { await navigator.clipboard.writeText(text); toast("已复制"); }
     catch {
@@ -548,8 +532,9 @@
 
   function activateSkill(skill) {
     if (skill.io && skill.io.length) { openDrawer(skill); return; }
-    const out = runSkill(skill, {});
-    aiMessage(`已用「${skill.name}」生成，可以直接用：`, resultCard(skill, out));
+    // 无输入字段的技能：配了模型才真跑，没配只提示，不吐模板冒充结果
+    if (currentModel().key) { callSkill(skill, ""); return; }
+    showModelNeeded(skill);
   }
 
   function matchSkill(text, list) {
@@ -583,67 +568,8 @@
     return best && best.score >= 2 ? best.skill : null;
   }
 
-  /* 没有现成技能时，直接给一版可用草稿（本地规则，不联网） */
-  const TODAY = () => {
-    const d = new Date();
-    const p = (x) => String(x).padStart(2, "0");
-    return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}`;
-  };
-
-  function directReply(text) {
-    const q = text.trim();
-    const topic = q.replace(/^(帮我|请|麻烦|能不能|可以|给我|我想|需要)/, "").trim() || q;
-    const has = (...ks) => ks.some((k) => q.includes(k));
-
-    if (has("邮件", "mail", "email")) {
-      return {
-        intro: "这个我直接写，按「结论先行」的邮件结构给你一版：",
-        body: `主题：${topic}\n\n【称呼】：\n\n${topic}——结论先说：<一句话结果 / 需要对方做什么>\n\n背景：\n- <为什么发这封邮件>\n\n要请对方做的事：\n1. <动作 + 时间>\n2. \n\n如有疑问随时找我，谢谢。\n\n<你的名字>\n${TODAY()}`
-      };
-    }
-    if (has("周报", "日报", "月报", "汇报")) {
-      return {
-        intro: "给你一版三段式草稿，把方括号换成你的内容就能发：",
-        body: `# ${topic}\n\n## 本周完成\n- [事项 1]：<结果 / 数据>\n- [事项 2]：<结果 / 数据>\n\n## 关键数据\n- [指标]：<数值，环比 / 同比>\n\n## 问题与风险\n- [问题]：<当前状态 + 需要谁支持>\n\n## 下周计划\n1. [重点 1]\n2. [重点 2]\n\n${TODAY()}`
-      };
-    }
-    if (has("总结", "复盘")) {
-      return {
-        intro: "按「结果—原因—改进」给你搭好了：",
-        body: `# ${topic}\n\n## 一句话结论\n[最想让人记住的那句话]\n\n## 做成了什么（结果 + 数据）\n- \n\n## 没做好的（原因，不是借口）\n- \n\n## 下次怎么改（具体动作 + 负责人 + 时间）\n1. \n\n## 需要什么支持\n- `
-      };
-    }
-    if (has("计划", "方案", "规划")) {
-      return {
-        intro: "先给你一版可执行的方案骨架：",
-        body: `# ${topic}\n\n## 目标（可衡量）\n[3 个月内要达到的数字]\n\n## 拆解\n| 阶段 | 做什么 | 产出 | 时间 |\n|---|---|---|---|\n| 第一阶段 |  |  |  |\n| 第二阶段 |  |  |  |\n\n## 资源与依赖\n- 人：\n- 钱：\n- 卡点：\n\n## 风险与备选\n- `
-      };
-    }
-    return {
-      intro: `「${topic}」没有对应的现成技能，我先按通用结构给你搭一版，直接在上面改就行：`,
-      body: `# ${topic}\n\n## 要解决的问题\n[一句话说清]\n\n## 结论 / 建议\n[先给答案]\n\n## 理由（3 条以内）\n1. \n2. \n3. \n\n## 下一步动作\n- [ ] 负责人 / 时间\n\n---\n原话：${q}`
-    };
-  }
-
-  /* 自动把技能字段填上能用的值，不用先弹表单 */
-  function autoFill(skill, text) {
-    const vals = { date: TODAY(), input: text };
-    (skill.io || []).forEach((f) => {
-      if (f.t === "checkbox") { vals[f.k] = "1"; return; }
-      if (f.t === "select") {
-        const o = (SEL[f.k] || [])[0];
-        vals[f.k] = typeof o === "string" ? o : (o ? o.v : "");
-        return;
-      }
-      if (f.k === "date") { vals[f.k] = TODAY(); return; }
-      if (f.k === "input") { vals[f.k] = text; return; }
-      vals[f.k] = `[${f.l}]`;
-    });
-    return vals;
-  }
-
   /* ---------------- 真实执行 ----------------
-     配了 Base URL + API Key 就走模型；没配才退回本地模板并说明。 */
+     配了 Base URL + API Key 才走模型；没配只提示配模型，不生成内容。 */
   const BASE_SYSTEM = "你是 JUST WORK 的助手。回答直接、具体、可执行，用中文，必要时用 Markdown 小标题和列表。不要反问，缺信息就按常见情况补全并注明假设。";
 
   function systemFor(skill) {
@@ -689,51 +615,21 @@
   function respond(text) {
     const list = state.data[state.mode] || [];
     const skill = matchSkill(text, list);
-    const typing = typingMessage();
+    if (currentModel().key) { callSkill(skill, text); return; }
+    // 没配模型：不生成任何内容。纯计算工具（Urgent）不用模型，直接开表单；
+    // 其余一律提示去配模型，不拿模板 / 草稿冒充结果。
+    if (skill && skill.fn) { openDrawer(skill); return; }
+    showModelNeeded(skill);
+  }
 
+  /* 没配模型时唯一该说的：去配模型，不生成内容 */
+  function showModelNeeded(skill) {
+    const typing = typingMessage();
     setTimeout(() => {
       typing.remove();
-
-      // 有 Key：真的调用模型（技能正文作为 system prompt，没命中技能就当普通对话）
-      if (currentModel().key) { callSkill(skill, text); return; }
-
-      if (skill) {
-        if (skill.imported) { runImported(skill, text); return; }
-        const out = runSkill(skill, autoFill(skill, text));
-        const extra = document.createElement("div");
-        extra.appendChild(resultCard(skill, out));
-        if (skill.io && skill.io.length) {
-          const row = document.createElement("div");
-          row.className = "suggest";
-          const b = document.createElement("button");
-          b.type = "button";
-          b.className = "sugg";
-          b.textContent = "填好信息再生成";
-          b.addEventListener("click", () => openDrawer(skill));
-          row.appendChild(b);
-          extra.appendChild(row);
-        }
-        aiMessage(`「${skill.name}」本地模板版（没接模型时会留方括号占位，接入后会按你的内容写实）：`, extra);
-        return;
-      }
-
-      // 没命中技能：本地也给一版草稿，而不是「找不到」
-      const d = directReply(text);
-      const extra = document.createElement("div");
-      extra.appendChild(resultCard({ name: "草稿", cat: MODES[state.mode].label, ext: "md" }, d.body));
-
-      const words = text.trim().split(/[\s,，。.!?、/]+/).filter(Boolean);
-      const scored = list.map((s) => {
-        const hay = (s.name + s.desc + s.cat).toLowerCase();
-        let n = 0;
-        words.forEach((w) => { if (w.length >= 2 && hay.includes(w.toLowerCase())) n++; });
-        return { s, n };
-      }).sort((a, b) => b.n - a.n);
-      const top = scored.filter((x) => x.n > 0).slice(0, 3).map((x) => x.s);
-      if (top.length) extra.appendChild(suggestionChips(top));
-
-      aiMessage(d.intro, extra);
-    }, 280);
+      const head = skill ? `「${skill.name}」需要模型接口。` : "还没配置模型。";
+      aiMessage(head + "点右下角模型按钮，填 Base URL + API Key（AGNES 用 https://apihub.agnes-ai.cn/v1）。没接模型我不会生成内容，也不会拿模板冒充结果。");
+    }, 240);
   }
 
   /* ---------------- 抽屉 ---------------- */
@@ -840,8 +736,12 @@
     closeDrawer();
     if (currentModel().key) { callSkill(skill, briefOf(skill, vals)); return; }
     if (skill.imported) { runImported(skill, vals.input || ""); return; }
-    const out = runSkill(skill, vals);
-    aiMessage(`「${skill.name}」已生成（本地模板）：`, resultCard(skill, out));
+    if (skill.fn) { // 纯计算工具（Urgent）不依赖模型，本地直接出结果
+      const out = runSkill(skill, vals);
+      aiMessage(`「${skill.name}」结果：`, resultCard(skill, out));
+      return;
+    }
+    showModelNeeded(skill);
   }
 
   /* ---------------- 技能库 ---------------- */

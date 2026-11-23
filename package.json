@@ -1,7 +1,7 @@
 {
   "name": "fua-just-working",
   "productName": "JUST WORK",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "FUA JUST Working (JUST WORK) - a minimalist, elegant desktop work assistant by FUA Studio. Three modes: Just Working (everyday), Agent (coding/tech), Urgent (fast & cheap).",
   "main": "main.js",
   "author": "FUA Studio",

@@ -51,6 +51,12 @@ ok("run() routes fn vs tpl", () => {
   assert.strictEqual(L.run({ fn: "reverseText", tpl: "" }, { t: "abc" }), "cba");
   assert.strictEqual(L.run({ fn: null, tpl: "hi {{n}}" }, { n: "JW" }), "hi JW");
 });
+ok("{{date}} injected when missing/empty", () => {
+  const out = L.run({ fn: null, tpl: "今天 {{date}}" }, {});
+  assert.ok(/\d{4}-\d{2}-\d{2}/.test(out), "date should be filled: " + out);
+  const out2 = L.run({ fn: null, tpl: "今天 {{date}}" }, { date: "2020-01-01" });
+  assert.ok(out2.includes("2020-01-01"), "explicit date wins");
+});
 ok("uuid shape", () => {
   assert.match(L.BUILTINS.genUuid({ cnt: "1", v8: "" }).trim(), /^[0-9a-f-]{36}$/);
 });
